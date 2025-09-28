@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Priyanka Smart - Creative Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Animated gradient background */
+        .bg-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #f5576c, #4facfe, #00f2fe);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 2rem;
+            backdrop-filter: blur(20px);
+            background: rgba(10, 10, 10, 0.8);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(10, 10, 10, 0.95);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: #b0b0b0;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.6s both;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Floating elements */
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea20, #764ba220);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape-1 { top: 20%; left: 10%; width: 100px; height: 100px; animation-delay: 0s; }
+        .shape-2 { top: 60%; right: 15%; width: 150px; height: 150px; animation-delay: 2s; }
+        .shape-3 { bottom: 20%; left: 20%; width: 80px; height: 80px; animation-delay: 4s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Portfolio Section */
+        .portfolio {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .portfolio-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+        }
+
+        .portfolio-image {
+            height: 200px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .portfolio-content {
+            padding: 1.5rem;
+        }
+
+        .portfolio-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-content p {
+            color: #b0b0b0;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .project-link {
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .project-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .project-link.report {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+        }
+
+        .project-link.report:hover {
+            box-shadow: 0 5px 15px rgba(240, 147, 251, 0.3);
+        }
+
+        /* Experience Section */
+        .experience {
+            padding: 5rem 2rem;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .experience-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            padding-left: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -1.75rem;
+            top: 0.5rem;
+            width: 15px;
+            height: 15px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            border: 3px solid #0a0a0a;
+        }
+
+        .timeline-date {
+            position: absolute;
+            left: -12rem;
+            top: 0;
+            width: 8rem;
+            text-align: right;
+        }
+
+        .timeline-date span {
+            background: rgba(102, 126, 234, 0.2);
+            color: #667eea;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .timeline-content {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.1);
+        }
+
+        .timeline-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .timeline-content h4 {
+            font-size: 1.1rem;
+            color: #b0b0b0;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .timeline-content p {
+            color: #b0b0b0;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .experience-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .exp-skill {
+            background: rgba(102, 126, 234, 0.2);
+            color: #667eea;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* About Section */
+        .about {
+            padding: 5rem 2rem;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .about-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0 auto;
+        }
+
+        .about-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .about-text p {
+            color: #b0b0b0;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Skills */
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .skill-tag {
+            padding: 0.5rem 1rem;
+            background: rgba(102, 126, 234, 0.2);
+            border-radius: 25px;
+            color: #667eea;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .contact-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-form {
+            display: grid;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: #666;
+        }
+
+        .submit-btn {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(10, 10, 10, 0.8);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-links a {
+            color: #b0b0b0;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #667eea;
+            transform: translateY(-3px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .about-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline {
+                padding-left: 1rem;
+            }
+
+            .timeline-date {
+                position: static;
+                width: auto;
+                text-align: left;
+                margin-bottom: 0.5rem;
+            }
+
+            .timeline-item {
+                padding-left: 1.5rem;
+            }
+
+            .timeline-content {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-gradient"></div>
+
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">Priyanka Smart</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        <div class="floating-shape shape-3"></div>
+        
+        <div class="hero-content">
+            <h1>Email Marketing Specialist and Analytics</h1>
+            <p>Crafting analytical and data driven experiences that inspire and engage through analytical and data driven design and innovative solutions.</p>
+            <a href="#portfolio" class="cta-button">View My Work</a>
+        </div>
+    </section>
+
+    <section id="experience" class="experience fade-in">
+        <h2 class="section-title">Work Experience</h2>
+        <div class="experience-container">
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">
+                        <span>Aug 2022 - Jul 2023</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Email Marketing Specialist</h3>
+                        <h4>Accenture</h4>
+                        <p>Executed 15+ monthly email newsletter campaigns across 7 European countries using Salesforce Marketing Cloud, ensuring timely delivery and message alignment with client goals. Partnered with clients to evaluate campaign requests and recommended data-driven alternatives, increasing response rates by 45%. Resolved data discrepancies, reducing validation errors by 25%.</p>
+                        <div class="experience-skills">
+                            <span class="exp-skill">Salesforce Marketing Cloud</span>
+                            <span class="exp-skill">Journey Builder</span>
+                            <span class="exp-skill">SQL</span>
+                            <span class="exp-skill">Campaign Management</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">
+                        <span>Sep 2024 - Present</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Marketing Analyst Volunteer</h3>
+                        <h4>Code Your Dreams</h4>
+                        <p>Enhanced CRM data accuracy by resolving missing email IDs, duplicate records, and mismatched contact details, enabling precise audience segmentation and targeted campaign execution. Analyzed campaign and customer engagement trends, generating dashboards and reports that identified key KPIs (CTR, open rates, conversions), providing actionable recommendations to senior stakeholders.</p>
+                        <div class="experience-skills">
+                            <span class="exp-skill">CRM Data Management</span>
+                            <span class="exp-skill">Campaign Analytics</span>
+                            <span class="exp-skill">Dashboard Development</span>
+                            <span class="exp-skill">Data Governance</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">
+                        <span>Oct 2024 - Jun 2025</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Graduate Research Assistant Volunteer</h3>
+                        <h4>DePaul University Jarvis College</h4>
+                        <p>Explored large-scale health datasets, identifying patterns and anomalies in patient-reported symptoms. Evaluated and fine-tuned machine learning algorithms (Logistic Regression, Random Forest) to optimize predictive performance and improve model reliability. Utilized R for data preprocessing, feature engineering, and statistical modeling.</p>
+                        <div class="experience-skills">
+                            <span class="exp-skill">R Programming</span>
+                            <span class="exp-skill">Machine Learning</span>
+                            <span class="exp-skill">Healthcare Analytics</span>
+                            <span class="exp-skill">Statistical Modeling</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">
+                        <span>Sep 2024 - Feb 2025</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Data Analyst Volunteer Intern</h3>
+                        <h4>My Cloud Crew</h4>
+                        <p>Analyzed employee project data and resource allocation trends, creating pivot tables to visualize revenue distribution. Designed scalable data pipelines integrating multiple sources and optimized data validation workflows, resolving inconsistencies and streamlining processes for reliable operations.</p>
+                        <div class="experience-skills">
+                            <span class="exp-skill">Data Pipelines</span>
+                            <span class="exp-skill">Revenue Analysis</span>
+                            <span class="exp-skill">Process Optimization</span>
+                            <span class="exp-skill">Microsoft Excel</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">
+                        <span>Apr 2024 - Jun 2025</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Database and CRM Coordinator</h3>
+                        <h4>DePaul University</h4>
+                        <p>Utilized data analysis techniques to identify duplicate records in resident databases, ensuring accuracy and consistency in access management. Enhanced data integrity by detecting and correcting discrepancies in access records, and provided data-driven insights on security trends and resident needs.</p>
+                        <div class="experience-skills">
+                            <span class="exp-skill">Database Management</span>
+                            <span class="exp-skill">STARREZ</span>
+                            <span class="exp-skill">Data Integrity</span>
+                            <span class="exp-skill">Access Management</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">
+                        <span>Jan 2022 - Aug 2022</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Data Analyst Intern</h3>
+                        <h4>Gamaka AI</h4>
+                        <p>Explored 12,000+ Zomato restaurant records to identify business insights around location, ratings, and cuisine trends. Designed sales dashboards and performed trend analysis to support strategic planning and predictive modeling. Delivered visual reports using Matplotlib and Seaborn that communicated insights to non-technical audiences.</p>
+                        <div class="experience-skills">
+                            <span class="exp-skill">Python</span>
+                            <span class="exp-skill">Matplotlib</span>
+                            <span class="exp-skill">Seaborn</span>
+                            <span class="exp-skill">Trend Analysis</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio" class="portfolio fade-in">
+        <h2 class="section-title">Portfolio</h2>
+        <div class="portfolio-grid">
+            <div class="portfolio-item">
+                <div class="portfolio-image">HubSpot Campaign</div>
+                <div class="portfolio-content">
+                    <h3>HubSpot Email Automation Campaign</h3>
+                    <p>Designed and implemented a multi-step email automation campaign in HubSpot demonstrating CRM workflows, list segmentation, and lifecycle-based engagement. Built automated workflows with time-based triggers (3-day and 9-day sequences) including welcome emails, product information, and webinar invitations to streamline customer journeys.</p>
+                    <div class="project-links">
+                        <a href="#" class="project-link">View Campaign</a>
+                        <a href="https://github.com/prismart1/Felix-" class="project-link">View GitHub</a>
+                        <a href="#" class="project-link report">View Report</a>
+                    </div>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-image">CRM Dashboard</div>
+                <div class="portfolio-content">
+                    <h3>Customer Segmentation & Lifecycle</h3>
+                    <p>Salesforce Marketing Cloud implementation for customer segmentation and automated lifecycle journeys, resulting in improved engagement rates and personalized customer experiences.</p>
+                    <div class="project-links">
+                        <a href="#" class="project-link">View Dashboard</a>
+                        <a href="#" class="project-link">View GitHub</a>
+                        <a href="#" class="project-link report">View Report</a>
+                    </div>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-image">Power BI Dashboard</div>
+                <div class="portfolio-content">
+                    <h3>Shopsphere Product Analytics Dashboard</h3>
+                    <p>Interactive Power BI dashboard analyzing product performance, customer ordering behavior, and return patterns for retail analytics. Identified UK as dominant market (70% order volume) and tracked $22.62 average order value with seasonal insights.</p>
+                    <div class="project-links">
+                        <a href="#" class="project-link">View Dashboard</a>
+                        <a href="#" class="project-link">View GitHub</a>
+                        <a href="#" class="project-link report">View Report</a>
+                    </div>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-image">Banking Analytics</div>
+                <div class="portfolio-content">
+                    <h3>Banking Customer Retention Analytics</h3>
+                    <p>Power BI dashboard analyzing customer churn, satisfaction, and complaints across demographics and regions. Identified high-churn segments in France and Spain, with middle-aged customers showing elevated risk and premium card holders requiring enhanced service delivery.</p>
+                    <div class="project-links">
+                        <a href="#" class="project-link">View Dashboard</a>
+                        <a href="#" class="project-link">View GitHub</a>
+                        <a href="#" class="project-link report">View Report</a>
+                    </div>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-image">Python Analytics</div>
+                <div class="portfolio-content">
+                    <h3>Movie Dataset Analysis & Visualization</h3>
+                    <p>Python-based data analysis project using Pandas, Matplotlib, and Seaborn to explore movie datasets. Created comprehensive visualizations including bar plots, pie charts, histograms, and box plots to analyze genre distribution, profitability trends, and rating correlations across different time periods.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/prismart1/Metaverse-fraud-detection" class="project-link">View GitHub</a>
+                        <a href="#" class="project-link report">View Report</a>
+                    </div>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-image">Subscription Analytics</div>
+                <div class="portfolio-content">
+                    <h3>Subscription Churn Analysis</h3>
+                    <p>Python-based subscription analytics project analyzing customer churn patterns using Pandas, NumPy, and Seaborn. Created KDE plots, histograms, and correlation heatmaps to explore relationships between monthly charges, tenure, and churn rates for data-driven retention strategies.</p>
+                    <div class="project-links">
+                        <a href="#" class="project-link">View GitHub</a>
+                        <a href="#" class="project-link report">View Report</a>
+                    </div>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-image">Fraud Detection</div>
+                <div class="portfolio-content">
+                    <h3>Metaverse Fraud Detection Analytics</h3>
+                    <p>R-based fraud detection system analyzing 78,600 blockchain transactions in the Open Metaverse. Created advanced visualizations including violin plots, interactive heatmaps, and mosaic plots to identify fraudulent patterns, revealing that random purchase behaviors and new users are highest risk segments.</p>
+                    <div class="project-links">
+                        <a href="#" class="project-link">View GitHub</a>
+                        <a href="#" class="project-link report">View Report</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about fade-in">
+        <div class="about-container">
+            <div class="about-image">Your Photo</div>
+            <div class="about-text">
+                <h2>About Me</h2>
+                <p>I'm Priyanka, a Data & CRM Analyst passionate about transforming customer and marketing data into clear, decision-ready insights. I work hands-on with Salesforce Marketing Cloud and HubSpot for segmentation, lifecycle journeys, and campaign reporting, and complement this with SQL, Python, and Power BI to build dashboards, automate reporting, and uncover trends that drive smarter campaigns.</p>
+                <p>My experience spans client projects, academic research, and volunteer consulting; where I've built executive-ready dashboards, analyzed campaign ROI, conducted A/B testing and cohort analysis, and performed quality checks to ensure accurate, consistent reporting. I enjoy translating complex performance data into clear recommendations that align with marketing and sales goals.</p>
+                <p>I'm excited about opportunities where I can combine data analytics, CRM, and digital strategy to enhance customer engagement, optimize campaigns, and support data-driven transformation initiatives. I'm actively seeking full-time data roles where I can grow, contribute, and help organizations turn complex data into clear outcomes.</p>
+                <div class="skills">
+                    <span class="skill-tag">Salesforce Marketing Cloud</span>
+                    <span class="skill-tag">HubSpot</span>
+                    <span class="skill-tag">SQL</span>
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">Power BI</span>
+                    <span class="skill-tag">Data Analytics</span>
+                    <span class="skill-tag">CRM Analysis</span>
+                    <span class="skill-tag">Campaign ROI</span>
+                    <span class="skill-tag">A/B Testing</span>
+                    <span class="skill-tag">Dashboard Development</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact fade-in">
+        <div class="contact-container">
+            <h2 class="section-title">Let's Work Together</h2>
+            <p style="color: #b0b0b0; font-size: 1.1rem; margin-bottom: 2rem;">Have a project in mind? I'd love to hear about it and discuss how we can bring your vision to life.</p>
+            
+            <form class="contact-form">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <input type="text" placeholder="Subject" required>
+                <textarea rows="5" placeholder="Your Message" required></textarea>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <a href="#">Gmail</a>
+            <a href="#">LinkedIn</a>
+        </div>
+        <p style="color: #666;">&copy; 2025 Priyanka Smart. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Form submission
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('.submit-btn');
+            const originalText = btn.textContent;
+            
+            btn.textContent = 'Sending...';
+            btn.style.opacity = '0.7';
+            
+            // Simulate form submission
+            setTimeout(() => {
+                btn.textContent = 'Message Sent!';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.opacity = '1';
+                    this.reset();
+                }, 2000);
+            }, 1000);
+        });
+
+        // Add some interactive hover effects
+        document.querySelectorAll('.portfolio-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Parallax effect for floating shapes
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const shapes = document.querySelectorAll('.floating-shape');
+            
+            shapes.forEach((shape, index) => {
+                const speed = (index + 1) * 0.5;
+                shape.style.transform = `translateY(${scrolled * speed}px) rotate(${scrolled * 0.1}deg)`;
+            });
+        });
+    </script>
+</body>
+</html>
