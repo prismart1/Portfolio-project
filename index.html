@@ -303,11 +303,11 @@
         <div class="contact-container">
             <h2 class="section-title">Let's Work Together</h2>
             <p style="color: #b0b0b0; font-size: 1.1rem; margin-bottom: 2rem;">Have a project in mind? I'd love to hear about it and discuss how we can bring your vision to life.</p>
-            <form class="contact-form">
-                <input type="text" placeholder="Your Name" required>
-                <input type="email" placeholder="Your Email" required>
-                <input type="text" placeholder="Subject" required>
-                <textarea rows="5" placeholder="Your Message" required></textarea>
+            <form class="contact-form" action="https://formspree.io/f/movkwpen" method="POST">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <input type="text" name="subject" placeholder="Subject" required>
+                <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
                 <button type="submit" class="submit-btn">Send Message</button>
             </form>
         </div>
